@@ -1,9 +1,10 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import {BadRequestException, ForbiddenException, Injectable} from '@nestjs/common';
 import {PrismaService} from "../../prisma/prisma.service";
 import {AuthDto} from "./dto/auth.dto";
 import * as bcrypt from "bcrypt";
 import { JwtService} from '@nestjs/jwt'
 import { jwtSecret } from '../utils/constants'
+import { Request, Response } from "express";
 
 @Injectable()
 export class AuthService {
@@ -32,7 +33,7 @@ export class AuthService {
         };
     }
 
-    async signin(dto: AuthDto) {
+    async signin(dto: AuthDto, req: Request, res: Response) {
         const {email, password} = dto;
 
         const existedUser = await this.prisma.users.findUnique({where: {email}});
@@ -46,12 +47,18 @@ export class AuthService {
         }
 
         const token = await this.signToken({id: existedUser.userid, email});
+        if (!token) {
+            throw new ForbiddenException();
+        }
 
-        return { token };
+        res.cookie('token', token);
+
+        return res.send({message: 'Logged in successfully'});
     }
 
-    async signout() {
-        return '';
+    async signout(req: Request, res: Response) {
+        res.clearCookie('token');
+        return res.send({message: 'Logged out successfully'});
     }
 
     async hashPassword(password:string) {
