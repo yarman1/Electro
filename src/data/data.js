@@ -381,12 +381,19 @@ export const DUMMY_PRODUCTS = {
       image:
         "https://rtx.com.ua/image/cache/catalog/product/35/72/product_image_58072_825929-1500x1500.jpg",
       name: "HP Pavilion 15",
-      technicalInfo: "15.6', AMD Ryzen 7, 512GB",
+      technicalInfo: {
+        Бренд: "HP",
+        "Діагональ дисплею": '13"',
+        "Обсяг накопичувача": "512 - 1000 ГБ",
+        "Обсяг оперативної пам'яті": "6 - 8 ГБ",
+        Процесор: "AMD Ryzen 7",
+        "Тип відеокарти": "Інтегрована",
+        "Тип накопичувача": "SSD",
+      },
       price: 19000,
       adress: "Kyiv, Ukraine",
       description:
         "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-
       seller: {
         name: "Yaroslav",
         phoneNumber: "+380985545347",
@@ -399,7 +406,15 @@ export const DUMMY_PRODUCTS = {
       image:
         "https://hoshyarpakistan.com/wp-content/uploads/2023/01/Apple-MacBook-Pro-14-inch-M2-Max-review-%E2%80%A2-TechCrunch-HP.jpg",
       name: "Macbook Pro 2021",
-      technicalInfo: "14', Apple M1, 1TB",
+      technicalInfo: {
+        Бренд: "Apple",
+        "Діагональ дисплею": '14"',
+        "Обсяг накопичувача": "512 - 1000 ГБ",
+        "Обсяг оперативної пам'яті": "16 - 24 ГБ",
+        Процесор: "Інше",
+        "Тип відеокарти": "Інтегрована",
+        "Тип накопичувача": "SSD",
+      },
       price: 65999,
       adress: "Odesa, Ukraine",
       description:
@@ -414,7 +429,15 @@ export const DUMMY_PRODUCTS = {
     {
       id: "lap3",
       name: "MSI Modern 14",
-      technicalInfo: "14', AMD Ryzen 5, 256GB",
+      technicalInfo: {
+        Бренд: "MSI",
+        "Діагональ дисплею": '14"',
+        "Обсяг накопичувача": "256- 500 ГБ",
+        "Обсяг оперативної пам'яті": "6 - 8 ГБ",
+        Процесор: "AMD Ryzen 5",
+        "Тип відеокарти": "Інтегрована",
+        "Тип накопичувача": "SSD",
+      },
       price: 15500,
       adress: "Lviv, Ukraine",
       description:
@@ -424,19 +447,6 @@ export const DUMMY_PRODUCTS = {
         phoneNumber: "+380985544370",
         image:
           "https://media.licdn.com/dms/image/D5635AQFp-WoqpFYJow/profile-framedphoto-shrink_800_800/0/1678824940381?e=1685473200&v=beta&t=v5Ex5zvAqKRbWfLnSy9uruRDHDFgpx_5EmhwocD3c5E",
-      },
-    },
-    {
-      id: "lap4",
-      name: "Acer Swift 3",
-      technicalInfo: "15.6', Intel Core i3",
-      price: 19000,
-      adress: "Dnipro, Ukraine",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      seller: {
-        name: "Dmytro",
-        phoneNumber: "+380983447577",
       },
     },
   ],

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./CheckboxList.module.css";
 
-const CheckboxList = ({ array }) => {
+const CheckboxList = ({ array, setCheckedItemsHandler }) => {
   const [checkedItems, setCheckedItems] = useState([]);
+
+  useEffect(() => {
+    setCheckedItemsHandler(checkedItems);
+  }, [checkedItems]);
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
@@ -21,11 +25,11 @@ const CheckboxList = ({ array }) => {
             <label className={classes.label}>
               <input
                 type="checkbox"
-                value={`item${i + 1}`}
-                checked={checkedItems.includes(`item${i + 1}`)}
+                value={item}
+                checked={checkedItems.includes(item)}
                 onChange={handleCheckboxChange}
               />
-              {item}
+              <span>{item}</span>
             </label>
           </li>
         );
