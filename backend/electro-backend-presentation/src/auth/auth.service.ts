@@ -2,10 +2,12 @@ import {BadRequestException, Injectable} from '@nestjs/common';
 import {PrismaService} from "../../prisma/prisma.service";
 import {AuthDto} from "./dto/auth.dto";
 import * as bcrypt from "bcrypt";
+import { JwtService} from '@nestjs/jwt'
+import { jwtSecret } from '../utils/constants'
 
 @Injectable()
 export class AuthService {
-    constructor(private prisma: PrismaService) {
+    constructor(private prisma: PrismaService, private jwt: JwtService) {
     }
 
     async signup(dto:AuthDto) {
@@ -30,8 +32,22 @@ export class AuthService {
         };
     }
 
-    async signin() {
-        return '';
+    async signin(dto: AuthDto) {
+        const {email, password} = dto;
+
+        const existedUser = await this.prisma.users.findUnique({where: {email}});
+        if (!existedUser) {
+            throw new BadRequestException('Wrong credentials');
+        }
+
+        const isMatch = await this.isCorrectPassword({password, hash: existedUser.password_hash})
+        if (!isMatch) {
+            throw new BadRequestException('Wrong credentials')
+        }
+
+        const token = await this.signToken({id: existedUser.userid, email});
+
+        return { token };
     }
 
     async signout() {
@@ -41,5 +57,13 @@ export class AuthService {
     async hashPassword(password:string) {
         const saltOrRounds = 10;
         return await bcrypt.hash(password, saltOrRounds);
+    }
+
+    async isCorrectPassword(args: {password:string, hash:string}) {
+        return await bcrypt.compare(args.password, args.hash);
+    }
+
+    async signToken(args: {id: string, email: string}) {
+        return this.jwt.signAsync(args, {secret: jwtSecret});
     }
 }
