@@ -5,14 +5,15 @@ import * as bcrypt from "bcrypt";
 import { JwtService} from '@nestjs/jwt'
 import { jwtSecret } from '../utils/constants'
 import { Request, Response } from "express";
+import {AuthDtoSignUp} from "./dto/auth.signup.dto";
 
 @Injectable()
 export class AuthService {
     constructor(private prisma: PrismaService, private jwt: JwtService) {
     }
 
-    async signup(dto:AuthDto) {
-        const {email, password} = dto;
+    async signup(dto:AuthDtoSignUp) {
+        const {email, password, visual_name} = dto;
 
         const existedUser = await this.prisma.users.findUnique({where: {email}});
         if (existedUser) {
@@ -25,11 +26,12 @@ export class AuthService {
             data: {
                 email,
                 password_hash: hashedPassword,
+                visual_name,
             }
         })
 
         return {
-            message: 'sign up was successful',
+            message: 'Sign up was successful',
         };
     }
 

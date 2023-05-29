@@ -14,7 +14,7 @@ model users {
   password_hash        String           @db.VarChar(64)
   phone_number         String?          @db.VarChar(25)
   address              String?          @db.VarChar(255)
-  profile_picture_link String?          @db.VarChar(255)
+  profile_picture_link String?          @db.VarChar(255) @default("https://i.imgur.com/Eyzrkg3.jpeg")
   advertisements       advertisements[]
   orders               orders[]
 }
