@@ -2,10 +2,21 @@ import GoodsItem from "./GoodsItem";
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const GoodsList = ({ goodsArray, filters }) => {
+const GoodsList = ({ goodsArray, filters, city }) => {
   const [productFilters, setProductFilters] = useState([]);
+  const [cityFilter, setCityFilter] = useState("");
   const params = useParams();
   let includesFilters;
+
+  useEffect(() => {
+    if (city) {
+      if (city.props.children !== "Вся Україна") {
+        setCityFilter(city.props.children);
+      } else {
+        setCityFilter("");
+      }
+    }
+  }, [city]);
 
   useEffect(() => {
     if (filters) {
@@ -40,10 +51,6 @@ const GoodsList = ({ goodsArray, filters }) => {
     }
   }, [filters]);
 
-  useEffect(() => {
-    console.log(productFilters);
-  }, [productFilters]);
-
   return (
     <>
       {goodsArray[params.category].map((item) => {
@@ -54,29 +61,54 @@ const GoodsList = ({ goodsArray, filters }) => {
             includesFilters.push(true);
           else includesFilters.push(false);
         });
-        console.log(includesFilters);
 
-        if (
-          includesFilters.length > 0 &&
-          includesFilters.every((filter) => filter === true)
-        ) {
-          return (
-            <NavLink
-              to={item.id}
-              style={{ textDecoration: "none", color: "#000" }}
-              key={item.id}
-            >
-              <GoodsItem
-                name={item.name}
-                image={item.image}
-                shortInfo={item.shortInfo}
-                adress={item.adress}
-                price={item.price}
-                phoneNumber={item.seller.phoneNumber}
-                id={item.id}
-              />
-            </NavLink>
-          );
+        if (cityFilter === "" || cityFilter === "Вся Україна") {
+          if (
+            includesFilters.length > 0 &&
+            includesFilters.every((filter) => filter === true)
+          ) {
+            return (
+              <NavLink
+                to={item.id}
+                style={{ textDecoration: "none", color: "#000" }}
+                key={item.id}
+              >
+                <GoodsItem
+                  name={item.name}
+                  image={item.image}
+                  technicalInfo={item.technicalInfo}
+                  adress={item.adress}
+                  price={item.price}
+                  phoneNumber={item.seller.phoneNumber}
+                  id={item.id}
+                />
+              </NavLink>
+            );
+          }
+        } else {
+          if (
+            includesFilters.length > 0 &&
+            includesFilters.every((filter) => filter === true) &&
+            cityFilter === item.adress
+          ) {
+            return (
+              <NavLink
+                to={item.id}
+                style={{ textDecoration: "none", color: "#000" }}
+                key={item.id}
+              >
+                <GoodsItem
+                  name={item.name}
+                  image={item.image}
+                  technicalInfo={item.technicalInfo}
+                  adress={item.adress}
+                  price={item.price}
+                  phoneNumber={item.seller.phoneNumber}
+                  id={item.id}
+                />
+              </NavLink>
+            );
+          }
         }
       })}
     </>

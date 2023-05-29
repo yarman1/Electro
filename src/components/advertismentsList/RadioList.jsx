@@ -10,7 +10,7 @@ const RadioList = ({ array, setCheckedRadioHandler, uniqueId }) => {
     <ul className={classes.list}>
       {array.map((item, i) => {
         return (
-          <li key={item}>
+          <li key={item + (Math.random() * 100).toFixed(2)}>
             <label
               className={classes.label}
               htmlFor={`radio-input-${uniqueId}-${i}`}

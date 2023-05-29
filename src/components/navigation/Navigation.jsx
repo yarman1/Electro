@@ -8,7 +8,7 @@ const Navigation = () => {
   return (
     <nav className={classes.navigation}>
       <Link to="/" className={classes.logo}>
-        Logo
+        Electro
       </Link>
       <div className={classes["nav__info"]}>
         <Link to="/createAdvertisment">

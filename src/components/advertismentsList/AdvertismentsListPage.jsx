@@ -7,15 +7,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { DUMMY_CATEGORIES } from "../../data/data";
 import { useEffect, useState } from "react";
+import CityAutoComplete from "../CityAutoComplete/CityAutoComplete";
 
 const AdvertismentsList = ({ category }) => {
   const [filters, setFilters] = useState([]);
+  const [city, setCity] = useState(
+    <h2 className={classes["heading-secondary"]}>Вся Україна</h2>
+  );
   const goodsArray = useSelector((state) => state.products);
   const [goodsList, setGoodsList] = useState(
     <GoodsList goodsArray={goodsArray.products} />
   );
   const params = useParams();
   const navigate = useNavigate();
+
+  const changeCityHandler = () => {
+    setCity(
+      <CityAutoComplete
+        type={"advertisments-page"}
+        onCloseInput={closeInputHandler}
+      />
+    );
+  };
+
+  const closeInputHandler = (city) => {
+    setCity(<h2 className={classes["heading-secondary"]}>{city}</h2>);
+  };
 
   const techInfo = DUMMY_CATEGORIES.filter(
     (currentCategory) => currentCategory.name === params.category
@@ -27,9 +44,13 @@ const AdvertismentsList = ({ category }) => {
 
   useEffect(() => {
     setGoodsList(
-      <GoodsList goodsArray={goodsArray.products} filters={filters} />
+      <GoodsList
+        goodsArray={goodsArray.products}
+        filters={filters}
+        city={city}
+      />
     );
-  }, [filters]);
+  }, [filters, city]);
 
   return (
     <>
@@ -37,8 +58,10 @@ const AdvertismentsList = ({ category }) => {
       <div className={classes.container}>
         <div className={classes["left-bar"]}>
           <div className={classes.location}>
-            <h2 className={classes["heading-secondary"]}>Kyiv</h2>
-            <Button className={classes.btn}>Change filter</Button>
+            {city}
+            <Button className={classes.btn} onClick={changeCityHandler}>
+              Change filter
+            </Button>
           </div>
           <TechnicalInformation filters={techInfo} getFilters={getFilters} />
         </div>

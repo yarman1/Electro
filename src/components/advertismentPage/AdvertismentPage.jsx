@@ -1,18 +1,26 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Navigation from "../navigation/Navigation";
 import classes from "./AdvertismentPage.module.css";
-import { DUMMY_PRODUCTS } from "../../data/data";
 import AdvertismentDescription from "./AdvertismentDescription";
 import AdvertismentPageSellersInfo from "./AdvertismentPageSellersInfo";
 import { useSelector } from "react-redux";
 
 const AdvertismentPage = () => {
+  const location = useLocation();
   const params = useParams();
-  const products = useSelector((state) => state.products.products);
-  console.log("CURRENT IMAGE", products);
-  const currentProduct = products[params.category].filter(
-    (product) => product.id === params.advertismentId
-  )[0];
+  let products, currentProduct;
+  products = useSelector((state) => state.products.products);
+
+  if (params.category === "allAdvertisments") {
+    const id =
+      location.pathname.split("/")[location.pathname.split("/").length - 1];
+    products = location.state.productsArray;
+    currentProduct = products.filter((product) => product.id === id)[0];
+  } else {
+    currentProduct = products[params.category].filter(
+      (product) => product.id === params.advertismentId
+    )[0];
+  }
 
   return (
     <>

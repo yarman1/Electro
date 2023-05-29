@@ -21,7 +21,7 @@ const CheckboxList = ({ array, setCheckedItemsHandler }) => {
     <ul className={classes.list}>
       {array.map((item, i) => {
         return (
-          <li key={item}>
+          <li key={item + (Math.random() * 100).toFixed(2)}>
             <label className={classes.label}>
               <input
                 type="checkbox"

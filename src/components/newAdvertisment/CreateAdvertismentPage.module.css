@@ -66,6 +66,9 @@ main {
 
 .price-box div input {
   height: 1.4rem;
+}
+
+.price-box div input[type="checkbox"] {
   width: 1.4rem;
 }
 

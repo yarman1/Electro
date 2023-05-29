@@ -11,7 +11,7 @@
   padding-right: 10px;
   display: flex;
   flex-direction: column;
-  overflow-y: none;
+  overflow-y: hidden;
 }
 .technical-info::-webkit-scrollbar {
   width: 10px;
