@@ -14,7 +14,7 @@ model users {
   password_hash        String           @db.VarChar(64)
   phone_number         String?          @db.VarChar(25)
   address              String?          @db.VarChar(255)
-  profile_picture_link String?          @db.VarChar(255) @default("https://i.imgur.com/Eyzrkg3.jpeg")
+  profile_picture_link String?          @default("https://i.imgur.com/Eyzrkg3.jpeg") @db.VarChar(255)
   advertisements       advertisements[]
   orders               orders[]
 }
@@ -63,7 +63,7 @@ model specifications {
 }
 
 model advertisement_specs {
-  advertisement_specsid Int            @id @unique @db.Int
+  advertisement_specsid String         @id @unique @db.VarChar(40)
   advertisement         advertisements @relation(fields: [advertisement_id], references: [advertisementid])
   specification         specifications @relation(fields: [specification_id], references: [specificationid])
   advertisement_id      String         @db.VarChar(40)
