@@ -28,7 +28,7 @@ model advertisements {
   title               String                @db.VarChar(255)
   description         String?               @db.LongText
   price               Float?                @db.Double
-  creation_date       DateTime              @db.DateTime
+  creation_date       DateTime              @default(now()) @db.DateTime(3)
   orders              orders[]
   advertisement_specs advertisement_specs[]
 }
@@ -39,7 +39,7 @@ model orders {
   buyer            users          @relation(fields: [buyer_id], references: [userid])
   advertisement_id String         @db.VarChar(40)
   buyer_id         String         @db.VarChar(40)
-  order_date       DateTime       @db.DateTime
+  order_date       DateTime       @default(now()) @db.DateTime(3)
   verification     Int            @db.TinyInt
 }
 
@@ -68,4 +68,5 @@ model advertisement_specs {
   specification         specifications @relation(fields: [specification_id], references: [specificationid])
   advertisement_id      String         @db.VarChar(40)
   specification_id      Int            @db.Int
+  value                 String         @db.VarChar(255)
 }
