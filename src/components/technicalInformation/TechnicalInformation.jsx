@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import classes from "./TechnicalInformation.module.css";
 import TechnicalInformationItem from "./TechnicalInformationItem";
 
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * Math.floor(10000));
+};
+
 const TechnicalInformation = ({
   filters,
   type = "checkbox",
   getTechnicalInformation,
+  getFilters,
 }) => {
   let filtersObject;
 
@@ -18,6 +23,7 @@ const TechnicalInformation = ({
 
   const [createFilters, setCreateFilters] = useState({});
   const [infoIsFull, setInfoIsFull] = useState(false);
+  const [checkboxes, setCheckboxes] = useState([]);
 
   useEffect(() => {
     if (
@@ -33,6 +39,10 @@ const TechnicalInformation = ({
     }
   }, [createFilters, infoIsFull]);
 
+  useEffect(() => {
+    if (type !== "radio") getFilters(checkboxes);
+  }, [checkboxes]);
+
   const setFilterHandler = (obj) => {
     filtersObject[obj.filter] = obj.value;
     setCreateFilters((prevObject) => {
@@ -40,8 +50,16 @@ const TechnicalInformation = ({
     });
   };
 
-  const generateUniqueId = () => {
-    return Math.floor(Math.random() * Math.floor(10000)); // generate random number for unique ID
+  const setCheckedCheckboxesHandler = (obj) => {
+    if (!!checkboxes.filter((checkbox) => checkbox.filter === obj.filter)[0]) {
+      setCheckboxes((prevFilters) => {
+        const currentIndex = prevFilters.indexOf(
+          prevFilters.filter((checkbox) => checkbox.filter === obj.filter)[0]
+        );
+        prevFilters[currentIndex] = obj;
+        return [...prevFilters];
+      });
+    } else setCheckboxes((prevFilters) => [...prevFilters, obj]);
   };
 
   return (
@@ -56,6 +74,7 @@ const TechnicalInformation = ({
                 type={type}
                 uniqueId={generateUniqueId()} // add unique ID to TechnicalInformationItem component
                 setFilterHandler={setFilterHandler}
+                setCheckboxesFilter={setCheckedCheckboxesHandler}
               />
             ))
           : ""}

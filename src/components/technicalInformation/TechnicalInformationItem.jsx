@@ -7,9 +7,14 @@ const TechnicalInformationItem = ({
   type = "checkbox",
   uniqueId,
   setFilterHandler,
+  setCheckboxesFilter,
 }) => {
   const setCheckedRadioHandler = (radio) => {
     setFilterHandler({ filter: filtersInfo.title, value: radio.value });
+  };
+
+  const setCheckedCheckboxesHandler = (checkedItems) => {
+    setCheckboxesFilter({ filter: filtersInfo.title, items: checkedItems });
   };
 
   return (
@@ -22,7 +27,10 @@ const TechnicalInformationItem = ({
           setCheckedRadioHandler={setCheckedRadioHandler}
         />
       ) : (
-        <CheckboxList array={filtersInfo.array} />
+        <CheckboxList
+          array={filtersInfo.array}
+          setCheckedItemsHandler={setCheckedCheckboxesHandler}
+        />
       )}
     </div>
   );

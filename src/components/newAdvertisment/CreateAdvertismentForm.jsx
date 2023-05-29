@@ -2,6 +2,7 @@ import classes from "./CreateAdvertismentPage.module.css";
 import { DUMMY_CATEGORIES } from "../../data/data";
 import { useEffect, useRef, useState } from "react";
 import DragAndDropImage from "../../DragAndDropImage/DragAndDropImage";
+import CityAutoComplete from "../CityAutoComplete/CityAutoComplete";
 
 const CreateAdvertismentForm = ({
   onChangeCategory,
@@ -10,10 +11,11 @@ const CreateAdvertismentForm = ({
 }) => {
   const [images, setImages] = useState([]);
   const [formIsFilled, setFormIsFilled] = useState(false);
+  const [cityIsValid, setCityisValid] = useState(false);
+  const [cityName, setCityName] = useState("");
   const currentCategory = useRef();
   const name = useRef();
   const price = useRef();
-  const city = useRef();
   const trade = useRef();
   const description = useRef();
 
@@ -25,13 +27,12 @@ const CreateAdvertismentForm = ({
 
   const changeFormHandler = () => {
     setFormIsFilled(false);
-    console.log();
     if (
       currentCategory.current.value.trim().length > 0 &&
       currentCategory.current.value.length !== "Category" &&
       name.current.value.trim().length > 0 &&
       price.current.value.trim().length > 0 &&
-      city.current.value.trim().length > 0 &&
+      cityIsValid &&
       description.current.value.trim().length > 0 &&
       images.length > 0
     ) {
@@ -40,8 +41,7 @@ const CreateAdvertismentForm = ({
         category: currentCategory.current.value,
         name: name.current.value,
         price: price.current.value,
-        city: city.current.value,
-        trade: trade.current.value,
+        city: cityName,
         description: description.current.value,
         image: images[0].url,
       });
@@ -89,14 +89,18 @@ const CreateAdvertismentForm = ({
               ref={price}
             />
 
-            <input
+            {/* <input
               type="text"
               placeholder="City"
               className={classes["price-input"]}
               ref={city}
+            /> */}
+            <CityAutoComplete
+              setCityisValid={setCityisValid}
+              setCityName={setCityName}
             />
             <div>
-              <input type="checkbox" id="trade" ref={trade} />
+              <input type="checkbox" id="trade" />
               <label htmlFor="trade">Trade</label>
             </div>
           </div>

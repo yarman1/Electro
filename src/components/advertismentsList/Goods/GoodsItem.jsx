@@ -4,7 +4,7 @@ import { FaHryvnia } from "react-icons/fa";
 const GoodsItem = ({
   image = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png",
   name,
-  shortInfo,
+  technicalInfo,
   price,
   adress,
   phoneNumber,
@@ -18,7 +18,15 @@ const GoodsItem = ({
         </div>
         <div className={classes.info}>
           <h3>{name}</h3>
-          <div>{shortInfo}</div>
+          <div>
+            {Object.values(technicalInfo).map((info) => (
+              <div key={info + (Math.random() * 100).toFixed(2)}>
+                <span>{info}</span>
+                {","}
+                &nbsp;
+              </div>
+            ))}
+          </div>
         </div>
         <div className={classes["price-box"]}>
           <h3>

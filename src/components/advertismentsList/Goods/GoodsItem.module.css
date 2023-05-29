@@ -32,6 +32,10 @@
   font-size: 1.3rem;
 }
 
+.info > div {
+  display: flex;
+}
+
 .price-box h3 {
   display: flex;
   align-items: center;
