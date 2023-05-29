@@ -8,7 +8,64 @@ datasource db {
 }
 
 model users {
-  userid String @unique @default(uuid())
-  email String @unique @db.VarChar(50)
-  password_hash String @db.VarChar(64)
+  userid               String           @id @unique @default(uuid()) @db.VarChar(40)
+  email                String           @unique @db.VarChar(50)
+  visual_name          String           @db.VarChar(255)
+  password_hash        String           @db.VarChar(64)
+  phone_number         String?          @db.VarChar(25)
+  address              String?          @db.VarChar(255)
+  profile_picture_link String?          @db.VarChar(255)
+  advertisements       advertisements[]
+  orders               orders[]
+}
+
+model advertisements {
+  advertisementid     String                @id @unique @default(uuid()) @db.VarChar(40)
+  seller              users                 @relation(fields: [seller_id], references: [userid])
+  category            categories            @relation(fields: [category_id], references: [categoriesid])
+  seller_id           String                @db.VarChar(40)
+  category_id         Int                   @db.Int
+  title               String                @db.VarChar(255)
+  description         String?               @db.LongText
+  price               Float?                @db.Double
+  creation_date       DateTime              @db.DateTime
+  orders              orders[]
+  advertisement_specs advertisement_specs[]
+}
+
+model orders {
+  ordersid         String         @id @unique @default(uuid()) @db.VarChar(40)
+  advertisement    advertisements @relation(fields: [advertisement_id], references: [advertisementid])
+  buyer            users          @relation(fields: [buyer_id], references: [userid])
+  advertisement_id String         @db.VarChar(40)
+  buyer_id         String         @db.VarChar(40)
+  order_date       DateTime       @db.DateTime
+  verification     Int            @db.TinyInt
+}
+
+model categories {
+  categoriesid       Int              @id @unique @db.Int
+  parent_category_id Int?             @db.Int
+  parent_category    categories?      @relation("parent_to_child", fields: [parent_category_id], references: [categoriesid])
+  child_categories   categories[]     @relation("parent_to_child")
+  category_name      String           @db.VarChar(255)
+  advertisements     advertisements[]
+  specifications     specifications[]
+}
+
+model specifications {
+  specificationid     Int                   @id @unique @db.Int
+  category            categories            @relation(fields: [category_id], references: [categoriesid])
+  category_id         Int                   @db.Int
+  specification_name  String                @db.VarChar(255)
+  group               String?               @db.VarChar(50)
+  advertisement_specs advertisement_specs[]
+}
+
+model advertisement_specs {
+  advertisement_specsid Int            @id @unique @db.Int
+  advertisement         advertisements @relation(fields: [advertisement_id], references: [advertisementid])
+  specification         specifications @relation(fields: [specification_id], references: [specificationid])
+  advertisement_id      String         @db.VarChar(40)
+  specification_id      Int            @db.Int
 }
