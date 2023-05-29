@@ -358,7 +358,7 @@ export const DUMMY_CATEGORIES = [
     name: "Headphones",
     icon: (
       <img
-        src={require("./../images/headphone.png")}
+        src={require("../images/headphone.png")}
         style={{ height: 50, width: 50 }}
       />
     ),
@@ -407,7 +407,7 @@ export const DUMMY_CATEGORIES = [
     name: "Powerbanks",
     icon: (
       <img
-        src={require("./../images/power-bank.png")}
+        src={require("../images/power-bank.png")}
         style={{ height: 50, width: 50 }}
       />
     ),
