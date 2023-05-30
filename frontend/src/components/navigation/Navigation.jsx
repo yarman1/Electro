@@ -14,9 +14,7 @@ const Navigation = () => {
         <Link to="/createAdvertisment">
           <Button className={classes["nav__button"]}>Add advertisment</Button>
         </Link>
-        <a href="#" className={classes["bell-icon"]}>
-          <CiBellOn size={62} color="#fff" />
-        </a>
+
         <Link to="/wallet">
           <CiUser size={44} color="#fff" className={classes["user-icon"]} />
         </Link>
