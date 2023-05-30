@@ -13,7 +13,7 @@ export class AuthService {
     }
 
     async signup(dto:AuthDtoSignUp) {
-        const {email, password, visual_name} = dto;
+        const {email, password, visual_name, phone_number, profile_picture_link} = dto;
 
         const existedUser = await this.prisma.users.findUnique({where: {email}});
         if (existedUser) {
@@ -27,6 +27,8 @@ export class AuthService {
                 email,
                 password_hash: hashedPassword,
                 visual_name,
+                profile_picture_link,
+                phone_number,
             }
         })
 
@@ -60,7 +62,7 @@ export class AuthService {
             path: '/'
         });
 
-        return res.header('access-control-expose-headers', 'Set-Cookie').send({message: 'Logged in successfully'});
+        return res.header('access-control-expose-headers','Set-Cookie').send({message: 'Logged in successfully'});
     }
 
     async signout(req: Request, res: Response) {
