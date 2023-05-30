@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsPhoneNumber, IsString, IsUrl, Length} from "class-validator";
+import {IsNotEmpty, IsPhoneNumber, IsString, Length} from "class-validator";
 import {AuthDto} from "./auth.dto";
 
 export class AuthDtoSignUp extends AuthDto {
@@ -12,7 +12,6 @@ export class AuthDtoSignUp extends AuthDto {
 
     @IsNotEmpty()
     @IsString()
-    @IsUrl()
     public profile_picture_link: string;
 
 }
