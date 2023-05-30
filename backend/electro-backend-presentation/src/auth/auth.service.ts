@@ -53,9 +53,14 @@ export class AuthService {
             throw new ForbiddenException();
         }
 
-        res.cookie('token', token);
+        res.cookie('token', token, {
+            sameSite: "none",
+            secure: true,
+            httpOnly: true,
+            path: '/'
+        });
 
-        return res.send({message: 'Logged in successfully'});
+        return res.header('access-control-expose-headers', 'Set-Cookie').send({message: 'Logged in successfully'});
     }
 
     async signout(req: Request, res: Response) {
