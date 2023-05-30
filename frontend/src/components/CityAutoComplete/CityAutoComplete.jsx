@@ -6,6 +6,8 @@ const CityAutoComplete = ({
   setCityName,
   type = "new-advertisment",
   onCloseInput,
+  inputClassName,
+  placeholder = "Місто",
 }) => {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -99,8 +101,8 @@ const CityAutoComplete = ({
       <input
         value={value}
         onChange={handleInputChange}
-        placeholder="Місто"
-        className={classes.input}
+        placeholder={placeholder}
+        className={`${classes.input} ${inputClassName}`}
       />
       {filteredSuggestions.length > 0 && (
         <ul className={classes.suggestions}>{list}</ul>

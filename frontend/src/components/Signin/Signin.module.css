@@ -1,0 +1,142 @@
+.form {
+  width: 15%;
+  margin: 10rem auto;
+  padding: 2rem 1rem;
+  align-items: center;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.reg-form {
+  width: 40rem;
+  margin: 7rem auto;
+}
+
+.reg-form .input-contaner {
+  width: 18rem;
+}
+
+.reg-form .actions-container > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+}
+
+.form > h2 {
+  margin-top: 0;
+}
+
+.form,
+form > .actions,
+.input-contaner {
+  display: flex;
+  flex-direction: column;
+}
+
+.form > .actions {
+  gap: 1rem;
+  width: 90%;
+}
+
+.input-contaner {
+  gap: 0.5rem;
+}
+
+.input-contaner > input {
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 1px solid #595858;
+}
+
+.registration {
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  color: #727171;
+}
+
+.registration > a:link,
+.registration > a:visited {
+  font-weight: 500;
+  color: #656464;
+  /* text-decoration: none; */
+}
+
+.form button {
+  margin: 0;
+  margin-top: 1.6rem;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 1px solid #595858;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form button:hover {
+  background-color: #595858;
+  color: #fff;
+}
+
+.error {
+  color: rgb(121, 4, 4);
+}
+
+.more-info {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  /* gap: 0.8rem; */
+  margin: 1rem;
+  margin-top: 1.8rem;
+}
+
+.more-info input {
+  width: 16rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 1px solid #595858;
+}
+
+.more-info div:nth-child(1) input {
+  width: 16.8rem;
+  margin-left: 0.38rem;
+}
+
+.more-info div:nth-child(2) input {
+  margin-right: 0.2rem;
+  width: 16.4rem;
+}
+
+.actions-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.image-container div:nth-child(2) {
+  color: red !important;
+}
+
+.more-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.more-actions label {
+  margin-left: 0.4rem;
+}
+
+.more-actions:nth-child(2) label {
+  margin-left: 0rem;
+}
+
+.city-input {
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 1px solid #595858;
+  font-size: 0.8rem;
+}

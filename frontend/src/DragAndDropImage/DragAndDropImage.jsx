@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import classes from "./DragAndDropImage.module.css";
 
-const DragAndDropImage = ({ setImagesToForm }) => {
+const DragAndDropImage = ({ setImagesToForm, className }) => {
   const [images, setImages] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
@@ -60,7 +60,7 @@ const DragAndDropImage = ({ setImagesToForm }) => {
   };
 
   return (
-    <div className={classes.card}>
+    <div className={`${classes.card} ${className}`}>
       <div
         className={classes["drag-area"]}
         onDragOver={onDragOver}
@@ -97,7 +97,7 @@ const DragAndDropImage = ({ setImagesToForm }) => {
           })}
       </div>
       <button type="button" onClick={selectFiles} className={classes.select}>
-        Select photos
+        Select photo
       </button>
     </div>
   );
