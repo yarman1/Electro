@@ -19,7 +19,7 @@
 .reg-form .actions-container > div:nth-child(1) {
   display: flex;
   flex-direction: column;
-  gap: 1.9rem;
+  gap: 0.8rem;
 }
 
 .form > h2 {
@@ -74,6 +74,10 @@ form > .actions,
   transition: all 0.3s;
 }
 
+.reg-form button {
+  margin-top: 3rem;
+}
+
 .form button:hover {
   background-color: #595858;
   color: #fff;
@@ -83,60 +87,8 @@ form > .actions,
   color: rgb(121, 4, 4);
 }
 
-.more-info {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  /* gap: 0.8rem; */
-  margin: 1rem;
-  margin-top: 1.8rem;
-}
-
-.more-info input {
-  width: 16rem;
-  padding: 0.5rem;
-  border-radius: 0.4rem;
-  outline: none;
-  border: 1px solid #595858;
-}
-
-.more-info div:nth-child(1) input {
-  width: 16.8rem;
-  margin-left: 0.38rem;
-}
-
-.more-info div:nth-child(2) input {
-  margin-right: 0.2rem;
-  width: 16.4rem;
-}
-
 .actions-container {
   display: flex;
   gap: 2rem;
-}
-
-.image-container div:nth-child(2) {
-  color: red !important;
-}
-
-.more-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.more-actions label {
-  margin-left: 0.4rem;
-}
-
-.more-actions:nth-child(2) label {
-  margin-left: 0rem;
-}
-
-.city-input {
-  padding: 0.5rem;
-  border-radius: 0.4rem;
-  outline: none;
-  border: 1px solid #595858;
-  font-size: 0.8rem;
+  align-items: center;
 }

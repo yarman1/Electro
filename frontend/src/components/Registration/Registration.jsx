@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navigation from "../navigation/Navigation";
 import classes from "../Signin/Signin.module.css";
 import { useRef, useState } from "react";
 import DragAndDropImage from "../../DragAndDropImage/DragAndDropImage";
-import CityAutoComplete from "../CityAutoComplete/CityAutoComplete";
 
 const Registration = () => {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [imagesToForm, setImagesToForm] = useState([]);
-  const [city, setCity] = useState(null);
+  const [registrationFinished, setRegistrationFinished] = useState(false);
+  const navigate = useNavigate();
 
   const email = useRef();
   const password = useRef();
@@ -17,32 +17,65 @@ const Registration = () => {
   const phoneNumber = useRef();
 
   const submitHandler = (e) => {
+    e.preventDefault();
+
     const image =
       imagesToForm.length > 0
         ? imagesToForm[0]
         : "https://i.imgur.com/Eyzrkg3.jpeg";
-    const jsonBody = JSON.stringify({
-      address: city,
-      email: email.current.value,
-      phone_number: phoneNumber.current.value,
-      profile_picture_link: image,
-      password: password.current.value,
-    });
 
-    e.preventDefault();
-    fetch("http://localhost:5000/users/me", {
-      mode: "cors",
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+    if (
+      email.current.value.trim().length > 0 &&
+      password.current.value.trim().length > 0 &&
+      username.current.value.trim().length > 0 &&
+      phoneNumber.current.value.trim().length > 0
+    ) {
+      const jsonBody = JSON.stringify({
+        email: email.current.value,
+        phone_number: phoneNumber.current.value,
+        profile_picture_link: image,
+        password: password.current.value,
+        visual_name: username.current.value,
+      });
+
+      fetch("http://localhost:5000/auth/signup", {
+        mode: "cors",
+        method: "POST",
+        body: jsonBody,
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            setErrorMessage(res.message);
+            setShowError(true);
+          } else {
+            setRegistrationFinished(true);
+          }
+          return res.json();
+        })
+        .then((data) => console.log("DATA", data))
+        .catch((err) => console.error(err));
+    }
   };
+
+  if (registrationFinished) {
+    navigate("/wallet", {
+      state: {
+        email: email.current.value,
+        phone_number: phoneNumber.current.value,
+        profile_picture_link:
+          imagesToForm.length > 0
+            ? imagesToForm[0]
+            : "https://i.imgur.com/Eyzrkg3.jpeg",
+        password: password.current.value,
+        visual_name: username.current.value,
+      },
+    });
+  }
 
   return (
     <div>
@@ -86,28 +119,16 @@ const Registration = () => {
                 ref={username}
               />
             </div>
+            <div className={classes["input-contaner"]}>
+              <label htmlFor="">Номер телефону</label>
+              <input type="tel" ref={phoneNumber} />
+            </div>
           </div>
 
           <DragAndDropImage
             className={classes["image-container"]}
             setImagesToForm={setImagesToForm}
           />
-        </div>
-
-        <div className={classes["more-info"]}>
-          <div className={classes["more-actions"]}>
-            <label htmlFor="">Місто</label>
-            <CityAutoComplete
-              inputClassName={classes["city-input"]}
-              setCityisValid={() => {}}
-              setCityName={setCity}
-              placeholder=""
-            />
-          </div>
-          <div className={classes["more-actions"]}>
-            <label htmlFor="">Номер телефону</label>
-            <input type="tel" ref={phoneNumber} />
-          </div>
         </div>
 
         <button onClick={submitHandler}>Зареєструватись</button>
