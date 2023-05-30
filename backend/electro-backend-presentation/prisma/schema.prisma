@@ -13,7 +13,6 @@ model users {
   visual_name          String           @db.VarChar(255)
   password_hash        String           @db.VarChar(64)
   phone_number         String?          @db.VarChar(25)
-  address              String?          @db.VarChar(255)
   profile_picture_link String?          @default("https://i.imgur.com/Eyzrkg3.jpeg") @db.VarChar(255)
   advertisements       advertisements[]
   orders               orders[]
@@ -29,6 +28,7 @@ model advertisements {
   description         String?               @db.LongText
   price               Float?                @db.Double
   creation_date       DateTime              @db.DateTime
+  address             String?               @db.VarChar(255)
   orders              orders[]
   advertisement_specs advertisement_specs[]
 }
