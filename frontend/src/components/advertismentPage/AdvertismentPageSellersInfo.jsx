@@ -19,9 +19,7 @@ const AdvertismentPageSellersInfo = ({ seller }) => {
           <Button className={classes["follow-btn"]}>Follow</Button>
         </div>
       </div>
-      <Button className={classes["info-btn"]}>
-        <BiChat size={24} /> Send message
-      </Button>
+
       <Button
         className={
           showNumber
