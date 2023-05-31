@@ -64,7 +64,7 @@ const TechnicalInformation = ({
 
   return (
     <div className={classes["technical-info"]}>
-      <h2 className={classes["heading-secondary"]}>Technical Information</h2>
+      <h2 className={classes["heading-secondary"]}>Технічна інформація</h2>
       <div className={classes.filters}>
         {filters && filters.length > 0
           ? filters.map((filter) => (

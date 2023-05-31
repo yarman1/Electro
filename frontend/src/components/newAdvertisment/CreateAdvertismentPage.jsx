@@ -47,6 +47,9 @@ const CreateAdvertismentPage = (props) => {
     if (technicalInfoFull && formIsFull) {
       setShowErrorMessage(false);
 
+      const categoryId =
+        "" + formData.category + Math.floor(Math.random() * 10000);
+
       fetch("http://localhost:5000/users/me", {
         mode: "cors",
         method: "GET",
@@ -61,12 +64,33 @@ const CreateAdvertismentPage = (props) => {
         })
         .then((data) => {
           console.log("formData", formData);
+          fetch("http://localhost:5000/adverts", {
+            mode: "cors",
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({
+              categoty_id: categoryId,
+              title: formData.name,
+              description: formData.description,
+              price: +formData.price,
+              address: formData.city,
+            }),
+            headers: {
+              Accept: "application/json",
+              "Content-type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .then((err) => console.error(err));
+
+          //
           dispatch(
             addAdvertisment({
               ...formData,
               adress: formData.city,
               technicalInfo: technicalInfoData,
-              id: "" + formData.category + (Math.random() * 10000).toFixed(0),
+              id: categoryId,
               seller: {
                 name: data["visual_name"],
                 phoneNumber: data["phone_number"],
@@ -93,10 +117,10 @@ const CreateAdvertismentPage = (props) => {
       {!advPublished && (
         <>
           <main>
-            <div className={classes.heading}>Add advertisment</div>
+            <div className={classes.heading}>Додати оголошення</div>
             {showErrorMessage && (
               <div className={`${classes.heading} ${classes.error}`}>
-                Please fill all fields!
+                Будь ласка, заповніть всі поля!
               </div>
             )}
             <CreateAdvertismentForm
@@ -114,14 +138,14 @@ const CreateAdvertismentPage = (props) => {
             </div>
           </main>
           <button className={classes["publish-btn"]} onClick={publishHandler}>
-            Publish
+            Опублікувати
           </button>
         </>
       )}
       {advPublished && (
         <div className={classes.published}>
           <BsPatchCheck size={80} />
-          <div className={classes.heading}>Advertisment published!</div>
+          <div className={classes.heading}>Оголошення опубліковано!</div>
         </div>
       )}
     </>

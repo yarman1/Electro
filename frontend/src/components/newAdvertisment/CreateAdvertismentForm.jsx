@@ -16,7 +16,6 @@ const CreateAdvertismentForm = ({
   const currentCategory = useRef();
   const name = useRef();
   const price = useRef();
-  const trade = useRef();
   const description = useRef();
 
   const changeCategoryHandler = (e) => {
@@ -57,7 +56,7 @@ const CreateAdvertismentForm = ({
         <div className={classes.form}>
           <input
             type="text"
-            placeholder="NAME"
+            placeholder="Назва"
             className={classes["name-input"]}
             ref={name}
           />
@@ -65,13 +64,13 @@ const CreateAdvertismentForm = ({
             name="category"
             id="selectCategory"
             placeholder="Category"
-            defaultValue={"Category"}
+            defaultValue={"Категорія"}
             className={classes["category-select"]}
             ref={currentCategory}
             onChange={changeCategoryHandler}
           >
             <option name="category-option" disabled={true}>
-              Category
+              Категорія
             </option>
             {DUMMY_CATEGORIES.map((category) => (
               <option key={category.name} name={category.name}>
@@ -82,7 +81,7 @@ const CreateAdvertismentForm = ({
           <div className={classes["price-box"]}>
             <input
               type="number"
-              placeholder="price"
+              placeholder="Ціна"
               className={classes["price-input"]}
               min={0}
               ref={price}
@@ -104,7 +103,7 @@ const CreateAdvertismentForm = ({
         </div>
       </div>
       <div className={classes.description}>
-        <label or="description">Description:</label>
+        <label or="description">Опис:</label>
 
         <textarea
           id="description"
