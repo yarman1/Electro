@@ -33,7 +33,6 @@ const CreateAdvertismentForm = ({
       name.current.value.trim().length > 0 &&
       price.current.value.trim().length > 0 &&
       cityIsValid &&
-      description.current.value.trim().length > 0 &&
       images.length > 0
     ) {
       setFormIsFilled(true);
@@ -89,20 +88,14 @@ const CreateAdvertismentForm = ({
               ref={price}
             />
 
-            {/* <input
-              type="text"
-              placeholder="City"
-              className={classes["price-input"]}
-              ref={city}
-            /> */}
             <CityAutoComplete
               setCityisValid={setCityisValid}
               setCityName={setCityName}
             />
-            <div>
+            {/* <div>
               <input type="checkbox" id="trade" />
               <label htmlFor="trade">Trade</label>
-            </div>
+            </div> */}
           </div>
         </div>
 

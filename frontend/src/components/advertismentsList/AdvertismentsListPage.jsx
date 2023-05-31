@@ -14,9 +14,10 @@ const AdvertismentsList = ({ category }) => {
   const [city, setCity] = useState(
     <h2 className={classes["heading-secondary"]}>Вся Україна</h2>
   );
-  const goodsArray = useSelector((state) => state.products);
+  const goodsArray = useSelector((state) => state.ProductsReducer.products);
+  console.log("GOODS", goodsArray);
   const [goodsList, setGoodsList] = useState(
-    <GoodsList goodsArray={goodsArray.products} />
+    <GoodsList goodsArray={goodsArray} />
   );
   const params = useParams();
   const navigate = useNavigate();
@@ -44,11 +45,7 @@ const AdvertismentsList = ({ category }) => {
 
   useEffect(() => {
     setGoodsList(
-      <GoodsList
-        goodsArray={goodsArray.products}
-        filters={filters}
-        city={city}
-      />
+      <GoodsList goodsArray={goodsArray} filters={filters} city={city} />
     );
   }, [filters, city]);
 

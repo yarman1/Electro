@@ -2,7 +2,11 @@ import { useState } from "react";
 import classes from "./CheckboxList.module.css";
 
 const RadioList = ({ array, setCheckedRadioHandler, uniqueId }) => {
+  const [selectedValue, setSelectedValue] = useState("");
+
   const changeRadioHandler = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedValue(selectedValue);
     setCheckedRadioHandler(e.target);
   };
 
@@ -18,10 +22,11 @@ const RadioList = ({ array, setCheckedRadioHandler, uniqueId }) => {
               <div>
                 <input
                   type="radio"
-                  id={`radio-input-${uniqueId}-${i}`} // add unique ID to ID attribute of input element
-                  name={`radio-input-${uniqueId}`} // add unique ID to name attribute of input element
+                  id={`radio-input-${uniqueId}-${i}`}
+                  name={`radio-input-${uniqueId}`}
                   value={item}
                   onChange={changeRadioHandler}
+                  checked={selectedValue === item}
                 />
                 {item}
               </div>
