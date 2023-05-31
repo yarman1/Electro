@@ -17,10 +17,18 @@ export class UsersService {
         delete foundUser.password_hash;
 
         const adverts = await this.prisma.advertisements.findMany({where: {seller_id: decodedUserInfo.id}})
+        const advertsWithSpecs = [];
+        for (const advert of adverts) {
+            const specifications = await this.prisma.advertisement_specs.findMany({where:{advertisement_id: advert.advertisementid}})
+            advertsWithSpecs.push({
+                ...advert,
+                specifications,
+            })
+        }
 
         return {
             ...foundUser,
-            adverts,
+            adverts: advertsWithSpecs,
         };
     }
 
