@@ -32,5 +32,11 @@ export class AdvertsController {
   postSpecifications(@Body() dto: SpecsArrayDto) {
     return this.advertsService.postSpecifications(dto);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('all')
+  getAdvertisements(){
+    return this.advertsService.getAllAdvertisements();
+  }
 }
 

@@ -30,6 +30,22 @@ export class AdvertsService {
         };
     }
 
+    async getAllAdvertisements() {
+        const adverts = await this.prisma.advertisements.findMany();
+        const advertsWithSpecs = [];
+        for (const advert of adverts) {
+            const specifications = await this.prisma.advertisement_specs.findMany({where:{advertisement_id: advert.advertisementid}})
+            advertsWithSpecs.push({
+                ...advert,
+                specifications,
+            })
+        }
+
+        return {
+            ...advertsWithSpecs,
+        };
+    }
+
     async getCategories() {
         return await this.getConstants('categories');
     }
