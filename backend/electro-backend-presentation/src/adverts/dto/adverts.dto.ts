@@ -1,4 +1,4 @@
-import {IsInt, IsNotEmpty, IsString, Length} from "class-validator";
+import {IsInt, IsNotEmpty, IsNumber, IsString, Length} from "class-validator";
 
 export class AdvertsDto {
     @IsInt()
@@ -11,7 +11,15 @@ export class AdvertsDto {
     })
     public title: string;
 
+    @IsNotEmpty()
+    @IsString()
     public description: string;
 
+    @IsNotEmpty()
+    @IsNumber()
     public price: number;
+
+    @IsNotEmpty()
+    @IsString()
+    public address: string;
 }

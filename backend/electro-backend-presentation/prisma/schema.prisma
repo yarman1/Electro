@@ -63,7 +63,7 @@ model specifications {
 }
 
 model advertisement_specs {
-  advertisement_specsid String         @id @unique @db.VarChar(40)
+  advertisement_specsid String         @id @unique @default(uuid()) @db.VarChar(40)
   advertisement         advertisements @relation(fields: [advertisement_id], references: [advertisementid])
   specification         specifications @relation(fields: [specification_id], references: [specificationid])
   advertisement_id      String         @db.VarChar(40)

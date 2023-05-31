@@ -57,7 +57,6 @@ export class AuthService {
 
         res.cookie('token', token, {
             sameSite: "none",
-            secure: true,
             httpOnly: true,
             path: '/'
         });
@@ -66,7 +65,11 @@ export class AuthService {
     }
 
     async signout(req: Request, res: Response) {
-        res.clearCookie('token');
+        res.clearCookie('token', {
+            sameSite: "none",
+            httpOnly: true,
+            path: '/'
+        });
         return res.send({message: 'Logged out successfully'});
     }
 
