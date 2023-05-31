@@ -14,10 +14,14 @@ export class UsersService {
         if (!foundUser) {
             throw new NotFoundException();
         }
-
         delete foundUser.password_hash;
 
-        return foundUser;
+        const adverts = await this.prisma.advertisements.findMany({where: {seller_id: decodedUserInfo.id}})
+
+        return {
+            ...foundUser,
+            adverts,
+        };
     }
 
     async getUser(id: string) {
