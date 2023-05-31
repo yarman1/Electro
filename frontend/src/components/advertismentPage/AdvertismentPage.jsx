@@ -9,7 +9,7 @@ const AdvertismentPage = () => {
   const location = useLocation();
   const params = useParams();
   let products, currentProduct;
-  products = useSelector((state) => state.products.products);
+  products = useSelector((state) => state.ProductsReducer.products);
 
   if (params.category === "allAdvertisments") {
     const id =

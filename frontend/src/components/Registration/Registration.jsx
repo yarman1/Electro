@@ -7,7 +7,7 @@ import DragAndDropImage from "../../DragAndDropImage/DragAndDropImage";
 const Registration = () => {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [imagesToForm, setImagesToForm] = useState([]);
+  const [images, setImages] = useState([]);
   const [registrationFinished, setRegistrationFinished] = useState(false);
   const navigate = useNavigate();
 
@@ -19,10 +19,12 @@ const Registration = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
+    console.log(images.length);
+
     const image =
-      imagesToForm.length > 0
-        ? imagesToForm[0]
-        : "https://i.imgur.com/Eyzrkg3.jpeg";
+      images.length > 0 ? images[0].url : "https://i.imgur.com/Eyzrkg3.jpeg";
+
+    console.log("IIMMAAGGEE", image);
 
     if (
       email.current.value.trim().length > 0 &&
@@ -68,8 +70,8 @@ const Registration = () => {
         email: email.current.value,
         phone_number: phoneNumber.current.value,
         profile_picture_link:
-          imagesToForm.length > 0
-            ? imagesToForm[0]
+          images.length > 0
+            ? images[0].url
             : "https://i.imgur.com/Eyzrkg3.jpeg",
         password: password.current.value,
         visual_name: username.current.value,
@@ -127,7 +129,7 @@ const Registration = () => {
 
           <DragAndDropImage
             className={classes["image-container"]}
-            setImagesToForm={setImagesToForm}
+            setImagesToForm={setImages}
           />
         </div>
 

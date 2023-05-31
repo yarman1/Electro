@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAdvertisment } from "../../store/ProductsReducer";
 import { BsPatchCheck } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const CreateAdvertismentPage = (props) => {
   const [category, setCategory] = useState([]);
@@ -15,8 +16,12 @@ const CreateAdvertismentPage = (props) => {
   const [formIsFull, setFormIsFull] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [advPublished, setAdvPublished] = useState(false);
+  const navigate = useNavigate();
 
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.ProductsReducer.products);
+  const isLoggedIn = useSelector(
+    (state) => state.userIsLoggedReducer.userIsLogged
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,36 +43,55 @@ const CreateAdvertismentPage = (props) => {
   };
 
   const publishHandler = () => {
+    console.log(technicalInfoFull, formIsFull);
     if (technicalInfoFull && formIsFull) {
       setShowErrorMessage(false);
 
-      // dispatch(
-      //   addAdvertisment({ ...formData, technicalInfo: technicalInfoData })
-      // );
-      console.log("IMAGE", formData.image);
-
-      dispatch(
-        addAdvertisment({
-          ...formData,
-          technicalInfo: technicalInfoData,
-          id: "" + formData.category + (Math.random() * 100).toFixed(2),
-          seller: {
-            name: "DUMMY NAME",
-            phoneNumber: "+380980000000",
-            image: require("../../images/user.png"),
-          },
+      fetch("http://localhost:5000/users/me", {
+        mode: "cors",
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => {
+          return res.json();
         })
-      );
+        .then((data) => {
+          console.log("formData", formData);
+          dispatch(
+            addAdvertisment({
+              ...formData,
+              adress: formData.city,
+              technicalInfo: technicalInfoData,
+              id: "" + formData.category + (Math.random() * 10000).toFixed(0),
+              seller: {
+                name: data["visual_name"],
+                phoneNumber: data["phone_number"],
+                image: data["profile_picture_link"],
+              },
+            })
+          );
+        })
+        .catch((err) => console.error(err));
+
       setAdvPublished(true);
     } else setShowErrorMessage(true);
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
+  }, []);
 
   return (
     <>
       <Navigation />
       {!advPublished && (
         <>
-          {" "}
           <main>
             <div className={classes.heading}>Add advertisment</div>
             {showErrorMessage && (

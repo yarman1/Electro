@@ -7,6 +7,7 @@ const GoodsList = ({ goodsArray, filters, city }) => {
   const [cityFilter, setCityFilter] = useState("");
   const params = useParams();
   let includesFilters;
+  console.log("goodsarray", goodsArray);
 
   useEffect(() => {
     if (city) {

@@ -9,11 +9,6 @@ const AdvertismentDescription = ({ name, price, adress, description }) => {
         <div className={classes.headline}>
           <h3>{name}</h3>
           <div>
-            <FaBalanceScale
-              color="#313131"
-              size={42}
-              className={classes.icon}
-            />
             <AiOutlineHeart
               color="#313131"
               size={42}

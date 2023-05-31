@@ -9,7 +9,7 @@ import CategoryFilters from "./CategoryFilters";
 const AllAdvertismentsPage = () => {
   const [listIsEmpty, setListIsEmpty] = useState(false);
   const [products, setProducts] = useState([]);
-  const state = useSelector((state) => state.products.products);
+  const state = useSelector((state) => state.ProductsReducer.products);
   let location = useLocation();
   let allProducts, initialProducts;
 
